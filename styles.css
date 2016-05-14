@@ -4,6 +4,7 @@ height: 100%;
 } 
 body{ 
 margin: 0px; 
+background: url(wood-314772_960_720.jpg) repeat-y;
 } 
 .ask { 
 background:#FFA500; 
@@ -33,4 +34,17 @@ background: url(wood-314772_960_720.jpg)
 
 .horse.mp3{
 margin-left: 500px;
+}
+
+ul {
+list-style-type: none;
+}
+
+.delete {
+	width:11px;
+	height:15px;
+	display:inline-block;
+	background-image: url(images.jpg);
+	background-size:30px
+	
 }

@@ -28,15 +28,16 @@ Submit
 <ul id="todoList">
 </ul>
 
-
+<img src="https://media.giphy.com/media/4PZXI3LdlpBWU/giphy.gif" width="150" height="150" alt="dino" />
 
 </div> 
 
 <script>
 $( document ).ready(function() { 
-	
+	var array = [];
 	$("#login button").click(function() { 
 		var name = $("input").val();
+     
 
 		
 		if(typeof(Storage) !== "undefined") {
@@ -48,23 +49,50 @@ $( document ).ready(function() {
 	
 	if (localStorage.lastname !==undefined) {
 		login(localStorage.lastname)
-}
-	$("input:submit").click(function(){
-		console.log($(this).parent().find("input:text").val())
+	}
+	
+		var addelement = 	function(e, task){
+		if(task == undefined )
+          task = $(this).parent().find("input:text").val();
+
 		
-		var element = $("<li><input class='checkbox' type='checkbox'><span>" + $(this).parent().find("input:text").val() + "</span>"+"</li>");
-		
+
+		var element = $("<li><input class='checkbox' type='checkbox'><span>" + task + "</span>"+"<div class='delete'></div></li>");
+		array.push(task);
+      
+		localStorage.setItem("addtask", JSON.stringify(array));
+ 
+
+
+     console.log(array);
+     
 		$("#todoList").append(element);
-		$(element.on('change',function(){
-			
+		$(element).on('change',function(){
+		//додає елемент	
+		
+
 			var input = $(this).find("input");
 			if($(input).is(':checked')){
 				$(input).siblings('span').css('text-decoration','line-through');
 			}else{
 				$(input).siblings('span').css('text-decoration','none');
 			}
-		}));
-	});
+		});
+		
+		$(element).on('click',function(e){
+			if(e.target.className == "delete") {
+				$(this).hide();
+			}
+		});
+
+
+	};
+$("input:submit").click(addelement);
+var defolttasks = JSON.parse(localStorage.getItem("addtask"));
+var i;
+for (i=0; i<defolttasks.length; i++){
+addelement(null, defolttasks[i]);
+}
 
 	function login(name) {
         $("#main h1").text("Hello," + name)
@@ -78,4 +106,3 @@ $( document ).ready(function() {
   </audio>
 </body> 
 </html>
-
